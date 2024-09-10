@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="favicon" type="image/gif" href="/logo.gif" />
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Herby</title>
+</head>
+
+<body>
+  <div id="opencam" style="display:none;">
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="captureButton">Capture Photo</button>
+    <canvas id="canvas"></canvas> 
+  </div>
+  <main class="glass">
+    <h1>Herby Plant Friendly</h1>
+    <form>
+      <div class="image-picker">
+        <label for="fileInput" class="custom-file-upload">
+          Upload Image
+        </label>
+        <input style="flex: 1;" type="file" accept="image/*" id="fileInput" name="file">
+        <img class="custom-file-upload" onclick="OpenCamera()" style="filter: invert(1);cursor: pointer; background-color: #b150b0;" id="upload-image" src="camera_icon.png" alt="Camera Icon" height="20px">
+      </div>
+      <!-- <div class="image-preview-container"> -->
+      <img style="flex: 1;" class="image-preview-container" id="previewImage" src="" alt="Selected Image" />
+      <!-- </div> -->
+      <div class="prompt-box">
+        <div class="radio-group">
+          <input type="radio" id="student" name="role" value="Student" checked>
+          <label class="labelname" for="student">Student</label>
+
+          <input type="radio" id="farmer" name="role" value="Farmer">
+          <label class="labelname" for="farmer">Farmer</label>
+
+          <input type="radio" id="researcher" name="role" value="Researcher">
+          <label class="labelname" for="researcher">Researcher</label>
+          <!-- <div>
+            Accuracy 95%
+          </div> -->
+        </div>
+        <p id="testcase"></p>
+        <button type="submit" >Analyze</button>
+      </div>
+    </form>
+    <p class="output"></p>
+  </main>
+
+</body>
+<script type="module" src="main.js"></script>
+
+</html>
