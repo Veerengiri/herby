@@ -23,25 +23,25 @@ let output = document.querySelector('.output');
 
 function OpenCamera(){
   document.getElementById('opencam').style.display="block"
-  // alert("HI");
-  // avigator.mediaDevices.getUserMedia({ video: true })
-  //   .then(stream => {
-  //     video.srcObject = stream;
-  //   })
-  //   .catch(err => {
-  //     console.error('Error accessing camera:', err);
-  // });
-  // captureButton.addEventListener('click', () => {
-  //   canvas.width = video.videoWidth;
-  //   canvas.height = video.videoHeight;
-  //   context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  //   const imageData = canvas.toDataURL('image/png');
-  //   // Store image data in a variable
-  //   const fileVariable = imageData; 
-  //   // You can now use fileVariable (which contains the image data)
-  //   // For example, send it to a server or trigger a download
-  //   console.log(fileVariable); // Log the image data to the console
-  // });
+  alert("HI");
+  avigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+      video.srcObject = stream;
+    })
+    .catch(err => {
+      console.error('Error accessing camera:', err);
+  });
+  captureButton.addEventListener('click', () => {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const imageData = canvas.toDataURL('image/png');
+    // Store image data in a variable
+    const fileVariable = imageData; 
+    // You can now use fileVariable (which contains the image data)
+    // For example, send it to a server or trigger a download
+    console.log(fileVariable); // Log the image data to the console
+  });
 }
 opencambtn.addEventListener('click',OpenCamera) 
 
