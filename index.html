@@ -53,17 +53,6 @@
     </form>
     <p class="output"></p>
   </main>
-  <script>
-    const close= document.getElementById('close');
-    function closeCam(){
-      document.getElementById('opencam').style.display="none";
-      let video=document.getElementById('video');
-      video.srcObject=null; // Stop the video stream
-      video.style.display="none";
-      video.pause(); // Pause the video playback
-    }
-    close.addEventListener('click',closeCam)
-  </script>
 </body>
 <script type="module" src="main.js"></script>
 

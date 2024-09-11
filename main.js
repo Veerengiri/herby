@@ -9,6 +9,7 @@ const opencambtn = document.getElementById('opencambtn');
 const opencam = document.getElementById('opencam');
 const previewImage = document.getElementById('previewImage');
 import './style.css';
+let imageData;
 
 // 🔥🔥 FILL THIS OUT FIRST! 🔥🔥
 // Get your Gemini API key by:
@@ -17,121 +18,119 @@ import './style.css';
 let API_KEY = 'AIzaSyDMdyFubIT81nN2UZL4F1YozjIxj_tdQw8';
 
 let form = document.querySelector('form');
-let profesion= "Normal"
+let profesion = "Normal"
 // let promptInput = "Please provide detailed information about the medicinal plant based on the image or scan provided.The information should include the followingname of the plant.Common name(s) of the plant.The region(s) or countries where the plant is primarily found and grows.The success ratio of the plant’s growth in different climates and soil types.The growth requirements for the plant, including light, water, soil type, and temperature.Detailed and accurate medicinal information of the plant, including its uses in traditional or modern medicine, the specific ailments it treats, and any known side effects or precautions.This section should be comprehensive and based on reliable sources.The accuracy level of the information provided by the sources on a scale of 1 to 100, with 1 being highly uncertain and 100 being highly accurate.Base this accuracy on the reliability and consistency of the information provided by the sources.Make sure to present the information in a structured format, ensuring that the same question yields the same structured information every time."
 let output = document.querySelector('.output');
 
 
-function OpenCamera(){
-  document.getElementById('opencam').style.display="block"
+function OpenCamera() {
+  document.getElementById('opencam').style.display = "block"
   // alert("HI");
   navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
       video.srcObject = stream;
-      video.style.display="block"
+      video.style.display = "block"
     })
     .catch(err => {
       console.error('Error accessing camera:', err);
-  });
+    });
   captureButton.addEventListener('click', () => {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const imageData = canvas.toDataURL('image/png');
+    imageData= canvas.toDataURL('image/png');
     previewImage.style.display = 'block';
     previewImage.src = imageData;
-    document.getElementById('close').click();
+    closeCam();
   });
 }
-opencambtn.addEventListener('click',OpenCamera) ;
+opencambtn.addEventListener('click', OpenCamera);
 
 
 // const radioButtons = document.querySelectorAll('input[name="role"]');
-function consoleHello(){
+function consoleHello() {
   alert("heloo");
 }
-function OnProfessionChange(pn){
-  profesion=pn;
-  document.getElementById("testcase").innerHTML=pn
+function OnProfessionChange(pn) {
+  profesion = pn;
+  document.getElementById("testcase").innerHTML = pn
 }
-// function previewImage() {
-//   const fileInput = document.getElementById('fileInput');
-//   const file = fileInput.files[0];
-//   if (file) {
-//     const reader = new FileReader();
-//     reader.onload = function (e) {
-//       previewImage.src = e.target.result;
-//       previewImage.style.display = 'block'; // Show the image preview
-//     };
-//     reader.readAsDataURL(file);
-//   }
-// }
+const close = document.getElementById('close');
+function closeCam() {
+  document.getElementById('opencam').style.display = "none";
+  let video = document.getElementById('video');
+  video.srcObject = null; // Stop the video stream
+  video.style.display = "none";
+  video.pause(); // Pause the video playback
+}
+close.addEventListener('click', closeCam)
 
 function getSelectedRole() {
   const radioButtons = document.querySelectorAll('input[name="role"]');
-  for(let i=0; i<radioButtons.length; i++){
-    if(radioButtons[i].checked){
-      profesion=radioButtons[i].value;
+  for (let i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      profesion = radioButtons[i].value;
       break;
     }
   }
 }
 
-document.getElementById('fileInput').addEventListener('change', function(event) {
+document.getElementById('fileInput').addEventListener('change', function (event) {
   const file = event.target.files[0]; // Get the selected file
-  
-  if (file) {
-      const reader = new FileReader(); // Create a FileReader object
-      
-      // Set an onload function to run once the file is read
-      reader.onload = function(e) { // Get the image element
-        previewImage.src = e.target.result; // Set the image source to the file's data URL
-        previewImage.style.display = 'block'; // Make the image visible
-      };
-      reader.readAsDataURL(file); // Read the file as a data URL
-    }
-  });
-  
-  form.onsubmit = async (ev) => {
-    ev.preventDefault();
-    output.textContent = 'Analyze...';
-    getSelectedRole();
-    // let promptInput = `Identify the plant, flowers, trees, leaf, fruit, or vegetables in the given image with the following details (do not mention AI, act as a professional in this field). Please ensure the information is presented concisely, in easy-to-understand language, suitable for both medical professionals and the general public. Focus on accuracy and comprehensiveness. Provide the following details: Scientific Name: Provide the plant's scientific name. Common Name: Mention the most common names used for this plant in the regions where it grows. Medicinal Uses: List the primary medicinal uses or benefits of the plant, ensuring detailed, accurate, and up-to-date information. Description: A brief description of the plant's appearance, including leaf shape, flower characteristics, color, and any distinctive features. Geographical Distribution: Specify the regions or climates where this plant is commonly found. Growth Requirements: Include the plant’s light, water, soil, and temperature needs for optimal growth. Success Ratio: Indicate the success ratio of growing this plant in different climates and soil types. Safety Information: Include any known precautions or contraindications when using this plant for medicinal purposes. Accuracy: Provide an accuracy rating (from 1 to 100) for the information, based on reliable sources and consistency of the data. Additional Info: Include any important additional information relevant to the plant. Use clear, concise language, and structure the response so that the same question will always return consistent information. Say no to any unrelated questions or requests.
-    // And Note that You are explaining this thing to ${profesion} and give output accroding so that they can understand like for example for the researcher you can give output in details and scientific terms
-    // `
-    
-    // let promptInput = `
-    
-    // "Identify the plant (which could be a whole plant, leaf, flower, tree, or fruit) in the given image and provide details based on the selected user type: Normal Person, Researcher, or Farmer.
-    // Here Person is ${profesion} so ignore any other type of role....
-    // ### For Normal Person:
-    // 1. **Scientific Name**: Provide the plant's scientific name.
-    // 2. **Common Name**: Mention the most common names used for this plant.
-    // 3. **Medicinal Uses**: Briefly list the primary medicinal uses or benefits of the plant.
-    // 4. **Description**: Give a brief, simple description of the plant’s appearance, including leaf shape, flower characteristics, color, and distinctive features.
-    // 5. **Care Instructions**: Offer basic care instructions for growing the plant (watering, sunlight, etc.).
-    // 6. **Safety Information**: Mention any important precautions or risks when using the plant medicinally.
-    
-    // ### For Researcher:
-    // 1. **Scientific Name**: Provide the accurate scientific classification of the plant, including genus and species.
-    // 2. **Medicinal Uses**: Detail the plant's uses in both traditional and modern medicine, citing studies or sources where possible.
-    // 3. **Phytochemistry**: Include information on the plant’s active compounds and their medicinal properties.
-    // 4. **Geographical Distribution**: Specify the plant’s native regions, habitats, and the climates where it thrives.
-    // 5. **Safety and Toxicology**: Provide detailed safety information, including known toxicity levels, contraindications, and side effects.
-    // 6. **References**: Provide academic or peer-reviewed sources for further reading.
-    
-    // ### For Farmer:
-    // 1. **Scientific and Common Name**: Provide both the scientific name and the most common local names.
-    // 2. **Medicinal and Agricultural Uses**: Explain any medicinal uses and practical agricultural applications of the plant.
-    // 3. **Growing Conditions**: Include information on soil types, watering needs, sunlight exposure, and suitable climates for optimal growth.
-    // 4. **Pest and Disease Management**: List common pests or diseases that affect the plant, and suggest organic or chemical treatments.
-    // 5. **Economic Importance**: Mention any commercial value the plant may have (e.g., as a crop, herbal remedy, or ornamental plant).
-    // 6. **Safety Information**: List precautions for handling or cultivating the plant, especially regarding livestock or human consumption.
-    
-    
-    // `
 
-    let promptInput = `
+  if (file) {
+    const reader = new FileReader(); // Create a FileReader object
+
+    // Set an onload function to run once the file is read
+    reader.onload = function (e) { // Get the image element
+      previewImage.src = e.target.result; // Set the image source to the file's data URL
+      previewImage.style.display = 'block'; // Make the image visible
+      imageData=null;
+    };
+    reader.readAsDataURL(file); // Read the file as a data URL
+  }
+});
+
+form.onsubmit = async (ev) => {
+  ev.preventDefault();
+  output.textContent = 'Analyze...';
+  getSelectedRole();
+  // let promptInput = `Identify the plant, flowers, trees, leaf, fruit, or vegetables in the given image with the following details (do not mention AI, act as a professional in this field). Please ensure the information is presented concisely, in easy-to-understand language, suitable for both medical professionals and the general public. Focus on accuracy and comprehensiveness. Provide the following details: Scientific Name: Provide the plant's scientific name. Common Name: Mention the most common names used for this plant in the regions where it grows. Medicinal Uses: List the primary medicinal uses or benefits of the plant, ensuring detailed, accurate, and up-to-date information. Description: A brief description of the plant's appearance, including leaf shape, flower characteristics, color, and any distinctive features. Geographical Distribution: Specify the regions or climates where this plant is commonly found. Growth Requirements: Include the plant’s light, water, soil, and temperature needs for optimal growth. Success Ratio: Indicate the success ratio of growing this plant in different climates and soil types. Safety Information: Include any known precautions or contraindications when using this plant for medicinal purposes. Accuracy: Provide an accuracy rating (from 1 to 100) for the information, based on reliable sources and consistency of the data. Additional Info: Include any important additional information relevant to the plant. Use clear, concise language, and structure the response so that the same question will always return consistent information. Say no to any unrelated questions or requests.
+  // And Note that You are explaining this thing to ${profesion} and give output accroding so that they can understand like for example for the researcher you can give output in details and scientific terms
+  // `
+
+  // let promptInput = `
+
+  // "Identify the plant (which could be a whole plant, leaf, flower, tree, or fruit) in the given image and provide details based on the selected user type: Normal Person, Researcher, or Farmer.
+  // Here Person is ${profesion} so ignore any other type of role....
+  // ### For Normal Person:
+  // 1. **Scientific Name**: Provide the plant's scientific name.
+  // 2. **Common Name**: Mention the most common names used for this plant.
+  // 3. **Medicinal Uses**: Briefly list the primary medicinal uses or benefits of the plant.
+  // 4. **Description**: Give a brief, simple description of the plant’s appearance, including leaf shape, flower characteristics, color, and distinctive features.
+  // 5. **Care Instructions**: Offer basic care instructions for growing the plant (watering, sunlight, etc.).
+  // 6. **Safety Information**: Mention any important precautions or risks when using the plant medicinally.
+
+  // ### For Researcher:
+  // 1. **Scientific Name**: Provide the accurate scientific classification of the plant, including genus and species.
+  // 2. **Medicinal Uses**: Detail the plant's uses in both traditional and modern medicine, citing studies or sources where possible.
+  // 3. **Phytochemistry**: Include information on the plant’s active compounds and their medicinal properties.
+  // 4. **Geographical Distribution**: Specify the plant’s native regions, habitats, and the climates where it thrives.
+  // 5. **Safety and Toxicology**: Provide detailed safety information, including known toxicity levels, contraindications, and side effects.
+  // 6. **References**: Provide academic or peer-reviewed sources for further reading.
+
+  // ### For Farmer:
+  // 1. **Scientific and Common Name**: Provide both the scientific name and the most common local names.
+  // 2. **Medicinal and Agricultural Uses**: Explain any medicinal uses and practical agricultural applications of the plant.
+  // 3. **Growing Conditions**: Include information on soil types, watering needs, sunlight exposure, and suitable climates for optimal growth.
+  // 4. **Pest and Disease Management**: List common pests or diseases that affect the plant, and suggest organic or chemical treatments.
+  // 5. **Economic Importance**: Mention any commercial value the plant may have (e.g., as a crop, herbal remedy, or ornamental plant).
+  // 6. **Safety Information**: List precautions for handling or cultivating the plant, especially regarding livestock or human consumption.
+
+
+  // `
+
+  let promptInput = `
     
     Identify the plant in the image and provide a detailed breakdown of the following information, presented professionally and clearly without mentioning AI. Ensure the response is concise and easily understandable, with special attention to the medicinal properties and care instructions.
     And provide information in the way that you are telling it to the ${profesion}.
@@ -186,18 +185,18 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     Propagate by seeds or cuttings. Seeds should be sown in moist soil, and cuttings can be placed in water or moist soil until rooted.
     Pests and Problems: Susceptible to aphids, whiteflies, and fungal issues in humid conditions. Ensure good air circulation and avoid overwatering.
     `
-    try {
-      // Load the image as a base64 string
-      
-      const fileInput = document.getElementById('fileInput');
-      const  file = fileInput.files[0];
+  try {
+    // Load the image as a base64 string
+
+    const fileInput = document.getElementById('fileInput');
+    const file = imageData ? imageData : fileInput.files[0];
 
     // let imageUrl = form.elements.namedItem('chosen-image').value;
     // let imageBase64 = await fetch(imageUrl)
     //   .then(r => r.arrayBuffer())
     //   .then(a => Base64.fromByteArray(new Uint8Array(a)));
 
-    const imageBase64 = await new Promise((resolve,reject)=>{
+    const imageBase64 = await new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -206,7 +205,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
       }
       reader.onerror = error => reject(error);
     })
-    
+
     // Assemble the prompt by combining the text with the chosen image
     let contents = [
       {
