@@ -54,18 +54,18 @@ function OnProfessionChange(pn){
   profesion=pn;
   document.getElementById("testcase").innerHTML=pn
 }
-function previewImage() {
-  const fileInput = document.getElementById('fileInput');
-  const file = fileInput.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      previewImage.src = e.target.result;
-      previewImage.style.display = 'block'; // Show the image preview
-    };
-    reader.readAsDataURL(file);
-  }
-}
+// function previewImage() {
+//   const fileInput = document.getElementById('fileInput');
+//   const file = fileInput.files[0];
+//   if (file) {
+//     const reader = new FileReader();
+//     reader.onload = function (e) {
+//       previewImage.src = e.target.result;
+//       previewImage.style.display = 'block'; // Show the image preview
+//     };
+//     reader.readAsDataURL(file);
+//   }
+// }
 
 function getSelectedRole() {
   const radioButtons = document.querySelectorAll('input[name="role"]');
