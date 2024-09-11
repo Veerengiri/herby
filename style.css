@@ -23,6 +23,11 @@ body {
   border: 2px solid red;
   margin: 20px;
 }
+#video{
+  flex:1;
+  height: 100%;
+  width: 100%;
+}
 .downbtncam{
   position: absolute;
   bottom: 30px;
