@@ -12,6 +12,7 @@ import './style.css';
 let imageData;
 let backCameraId = null;
 let currentStream = null;
+let language="english";
 
 // 🔥🔥 FILL THIS OUT FIRST! 🔥🔥
 // Get your Gemini API key by:
@@ -76,10 +77,7 @@ function OpenCamera() {
 opencambtn.addEventListener('click', OpenCamera);
 
 
-// const radioButtons = document.querySelectorAll('input[name="role"]');
-function consoleHello() {
-  alert("heloo");
-}
+
 function OnProfessionChange(pn) {
   profesion = pn;
   document.getElementById("testcase").innerHTML = pn
@@ -159,61 +157,122 @@ form.onsubmit = async (ev) => {
 
   // `
 
-  let promptInput = `
+  // let promptInput = `
     
-    Identify the plant in the image and provide a detailed breakdown of the following information, presented professionally and clearly without mentioning AI. Ensure the response is concise and easily understandable, with special attention to the medicinal properties and care instructions.
-    And provide information in the way that you are telling it to the ${profesion}.
+  //   Identify the plant in the image and provide a detailed breakdown of the following information, presented professionally and clearly without mentioning AI. Ensure the response is concise and easily understandable, with special attention to the medicinal properties and care instructions.
+  //   And provide information in the way that you are telling it to the ${profesion}.
 
-    Plant Identification: Start with a brief identification of the plant, including the common name, scientific name, family, and origin of the plant.
-    Characteristics: Describe the plant’s physical characteristics, including leaf shape, flower color, height, aroma, and any distinctive features.
-    Cultural and Religious Importance (if applicable): Mention if the plant has any significant cultural, religious, or historical importance.
-    Medicinal and Health Benefits: Focus on the medicinal properties and health benefits of the plant, listing specific uses such as immunity boosting, digestive aid, etc.
-    Care Instructions: Provide guidance on how to care for the plant, including light, watering, soil preferences, temperature needs, fertilization, and pruning recommendations.
-    Propagation: Explain how the plant can be propagated (e.g., by seeds or cuttings).
-    Pests and Problems: Mention any common pests or issues the plant may face, along with preventive measures.
-    Safety Information: Include any known precautions or contraindications related to the plant's medicinal use.
-    Additional Info (if necessary): Provide any further information that may be important or relevant.
-    Make sure to give a clear and structured response that provides accurate information on the plant and its uses."
+  //   Plant Identification: Start with a brief identification of the plant, including the common name, scientific name, family, and origin of the plant.
+  //   Characteristics: Describe the plant’s physical characteristics, including leaf shape, flower color, height, aroma, and any distinctive features.
+  //   Cultural and Religious Importance (if applicable): Mention if the plant has any significant cultural, religious, or historical importance.
+  //   Medicinal and Health Benefits: Focus on the medicinal properties and health benefits of the plant, listing specific uses such as immunity boosting, digestive aid, etc.
+  //   Care Instructions: Provide guidance on how to care for the plant, including light, watering, soil preferences, temperature needs, fertilization, and pruning recommendations.
+  //   Propagation: Explain how the plant can be propagated (e.g., by seeds or cuttings).
+  //   Pests and Problems: Mention any common pests or issues the plant may face, along with preventive measures.
+  //   Safety Information: Include any known precautions or contraindications related to the plant's medicinal use.
+  //   Additional Info (if necessary): Provide any further information that may be important or relevant.
+  //   Make sure to give a clear and structured response that provides accurate information on the plant and its uses."
     
 
-    Example response (for Tulsi/Holy Basil):
+  //   Example response (for Tulsi/Holy Basil):
     
-    The plant in the image appears to be Tulsi (also known as Holy Basil, Ocimum tenuiflorum or Ocimum sanctum), a sacred herb in Hindu culture widely grown in India and Southeast Asia. Let's break down the key information:
+  //   The plant in the image appears to be Tulsi (also known as Holy Basil, Ocimum tenuiflorum or Ocimum sanctum), a sacred herb in Hindu culture widely grown in India and Southeast Asia. Let's break down the key information:
     
-    Plant Identification:
+  //   Plant Identification:
     
-    Common Name: Tulsi, Holy Basil
-    Scientific Name: Ocimum tenuiflorum / Ocimum sanctum
-    Family: Lamiaceae (Mint family)
-    Origin: Native to the Indian subcontinent
-    Characteristics:
+  //   Common Name: Tulsi, Holy Basil
+  //   Scientific Name: Ocimum tenuiflorum / Ocimum sanctum
+  //   Family: Lamiaceae (Mint family)
+  //   Origin: Native to the Indian subcontinent
+  //   Characteristics:
     
-    Leaves: Bright green, oval leaves with serrated edges, aromatic.
-    Height: Typically 1-3 feet tall.
-    Flowers: Small, purplish or white, in clusters along a central stem.
-    Aroma: Strong fragrance due to essential oils like eugenol.
-    Cultural and Religious Importance: Tulsi is considered sacred in Hindu culture and is often grown in homes and temples. It’s used in Ayurveda as an "elixir of life."
+  //   Leaves: Bright green, oval leaves with serrated edges, aromatic.
+  //   Height: Typically 1-3 feet tall.
+  //   Flowers: Small, purplish or white, in clusters along a central stem.
+  //   Aroma: Strong fragrance due to essential oils like eugenol.
+  //   Cultural and Religious Importance: Tulsi is considered sacred in Hindu culture and is often grown in homes and temples. It’s used in Ayurveda as an "elixir of life."
     
-    Medicinal and Health Benefits:
+  //   Medicinal and Health Benefits:
     
-    Immunity Booster: Helps in boosting immunity and reducing stress.
-    Respiratory Relief: Eases colds, coughs, and asthma.
-    Anti-inflammatory: Reduces inflammation.
-    Antioxidant: Detoxifies the body and fights free radicals.
-    Digestion Aid: Promotes healthy digestion.
-    Care Instructions:
+  //   Immunity Booster: Helps in boosting immunity and reducing stress.
+  //   Respiratory Relief: Eases colds, coughs, and asthma.
+  //   Anti-inflammatory: Reduces inflammation.
+  //   Antioxidant: Detoxifies the body and fights free radicals.
+  //   Digestion Aid: Promotes healthy digestion.
+  //   Care Instructions:
     
-    Light: Needs full sunlight for at least 4-6 hours daily.
-    Watering: Regular, but avoid waterlogging; prefers well-draining soil.
-    Soil: Loamy, well-drained soil with good organic content.
-    Temperature: Thrives in warm climates; protect from frost.
-    Fertilization: Once a month during the growing season.
-    Pruning: Prune regularly for bushier growth.
-    Propagation:
+  //   Light: Needs full sunlight for at least 4-6 hours daily.
+  //   Watering: Regular, but avoid waterlogging; prefers well-draining soil.
+  //   Soil: Loamy, well-drained soil with good organic content.
+  //   Temperature: Thrives in warm climates; protect from frost.
+  //   Fertilization: Once a month during the growing season.
+  //   Pruning: Prune regularly for bushier growth.
+  //   Propagation:
     
-    Propagate by seeds or cuttings. Seeds should be sown in moist soil, and cuttings can be placed in water or moist soil until rooted.
-    Pests and Problems: Susceptible to aphids, whiteflies, and fungal issues in humid conditions. Ensure good air circulation and avoid overwatering.
-    `
+  //   Propagate by seeds or cuttings. Seeds should be sown in moist soil, and cuttings can be placed in water or moist soil until rooted.
+  //   Pests and Problems: Susceptible to aphids, whiteflies, and fungal issues in humid conditions. Ensure good air circulation and avoid overwatering.
+  //   `
+
+  let promptInput = `Instructions: 
+  Suppose you are answering to the ${profesion} and give answers accroding to them and use according below propmt to generate and ignore every other role.
+  Answer in ${language} Language.
+
+
+  1. Prompt for Normal Person:
+  This version is designed for the average user, so the information is kept concise and user-friendly.
+  
+  Prompt:
+  
+  "Identify the plant in the image and provide easy-to-understand information. Focus on practical and useful details for someone interested in the plant for general purposes. Avoid using complex or scientific language. Include the following details:
+  
+  Common Name and Scientific Name: What is the plant commonly called, and what is its scientific name?
+  Medicinal Uses: Share the most important medicinal benefits of the plant in simple terms.
+  Physical Description: Briefly describe how the plant looks (e.g., leaf shape, color, height).
+  Where It Grows: Mention the main regions or areas where this plant is commonly found.
+  How to Grow It: Give basic tips for growing the plant, including sunlight, water, and soil needs.
+  Precautions: Mention any safety or health precautions one should know when using the plant for medicinal purposes.
+  Make sure the response is short and easy to follow, with practical information."
+  
+  2. Prompt for Farmer:
+  This version includes more detailed care instructions and practical growing advice, as a farmer would need more technical information to cultivate the plant effectively.
+  
+  Prompt:
+  
+  "Identify the plant in the image and provide detailed, farmer-friendly information. Focus on giving practical advice for growing, maintaining, and using the plant. Use simple language but include technical growing tips.
+  
+  Common and Scientific Name: What is the plant commonly called, and what is its scientific name?
+  Medicinal and Agricultural Uses: Provide details about the plant’s benefits, both medicinal and agricultural.
+  Description of the Plant: Describe the plant’s appearance (e.g., leaf shape, height, flower color), especially focusing on what a farmer needs to know to identify it in the field.
+  Where It Grows Best: Explain the regions, climates, and soil types where this plant grows well.
+  Care and Growing Instructions: Give detailed instructions on how to grow the plant, including its water, sunlight, temperature, soil, and fertilizer needs.
+  Success Ratio: Mention how successful this plant is likely to grow under different conditions.
+  Pest and Disease Management: Give advice on how to protect the plant from pests and diseases common in farming environments.
+  Safety Information: Share any important safety or health precautions when using the plant, especially if it’s being used for medicinal purposes or sold.
+  Make sure the response is easy to follow and focuses on practical agricultural advice for farmers."
+  
+  3. Prompt for Researcher:
+  This version includes in-depth, technical details to support a researcher's need for comprehensive data. It includes more scientific references, specific properties, and growth information.
+  
+  Prompt:
+  
+  "Identify the plant in the image and provide a detailed, research-focused response. The information should be thorough, scientifically accurate, and supported by references. Use precise terminology, and make sure to cover any relevant aspects for further study.
+  
+  Scientific and Common Name: Provide the plant’s scientific name, taxonomic classification, and common names used globally and regionally.
+  Medicinal Properties: Give detailed information on the medicinal benefits of the plant, including its bioactive compounds, traditional uses, and any clinical research or studies available.
+  Botanical Description: Provide an in-depth description of the plant's morphological features (e.g., leaf arrangement, stem type, flower structure), focusing on scientific accuracy.
+  Geographical Distribution and Ecological Range: Specify the plant’s native regions, its adaptability to different climates, and any ecological impact it may have.
+  Growth Requirements and Success Ratio: Include comprehensive data on optimal growing conditions (e.g., pH levels, soil composition, temperature ranges), success rates in various climates, and any known limitations to its cultivation.
+  Propagation and Growth Cycle: Explain the reproductive methods (e.g., seed germination, cuttings), growth cycles, and any relevant research on its propagation efficiency.
+  Chemical Composition: Provide details about the plant’s chemical makeup, active compounds, and any potential pharmaceutical applications.
+  Pests, Diseases, and Biological Challenges: Share any detailed studies or research on pests, diseases, and biological challenges the plant might face in different environments.
+  Safety and Toxicity Information: Discuss any known toxicity, side effects, or contraindications, particularly from a clinical or pharmacological perspective.
+  References and Studies: Include any relevant academic or scientific references for further research.
+  Ensure the response is well-structured, scientifically accurate, and suitable for academic or research purposes."
+  
+  
+  
+  
+  `
   try {
     // Load the image as a base64 string
 
