@@ -38,13 +38,13 @@ function OpenCamera(){
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     const imageData = canvas.toDataURL('image/png');
     // Store image data in a variable
-    const fileVariable = imageData; 
-    // You can now use fileVariable (which contains the image data)
-    // For example, send it to a server or trigger a download
-    console.log(fileVariable); // Log the image data to the console
+    // const fileVariable = imageData;
+    previewImage.src = imageData;
+    previewImage.style.display = 'block';
+    document.getElementById('close').click();
   });
 }
-opencambtn.addEventListener('click',OpenCamera) 
+opencambtn.addEventListener('click',OpenCamera) ;
 
 
 // const radioButtons = document.querySelectorAll('input[name="role"]');
