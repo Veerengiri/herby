@@ -24,9 +24,10 @@ let output = document.querySelector('.output');
 function OpenCamera(){
   document.getElementById('opencam').style.display="block"
   alert("HI");
-  avigator.mediaDevices.getUserMedia({ video: true })
+  navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
       video.srcObject = stream;
+      video.style.display="block"
     })
     .catch(err => {
       console.error('Error accessing camera:', err);
