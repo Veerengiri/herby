@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <link rel="favicon" type="image/gif" href="/logo.gif" />
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -12,28 +11,32 @@
 </head>
 
 <body>
-  <div id="opencam" style="display:none;">
+  <div id="opencam">
     <video id="video" width="640" height="480" autoplay></video>
     <button id="captureButton">Capture Photo</button>
+    <button id="close">Close</button>
     <canvas id="canvas"></canvas> 
   </div>
   <main class="glass">
     <h1>Herby Plant Friendly</h1>
+   
     <form>
       <div class="image-picker">
         <label for="fileInput" class="custom-file-upload">
           Upload Image
+          <!-- <img style="filter: invert(1)" id="upload-image" onclick="consoleLog()" src="camera_icon.png" alt="Camera Icon" height="20px"> -->
         </label>
+        
         <input style="flex: 1;" type="file" accept="image/*" id="fileInput" name="file">
-        <img class="custom-file-upload" onclick="OpenCamera()" style="filter: invert(1);cursor: pointer; background-color: #b150b0;" id="upload-image" src="camera_icon.png" alt="Camera Icon" height="20px">
+        <img id="opencambtn" class="custom-file-upload" style="filter: invert(1);cursor: pointer; background-color: #b150b0;" id="upload-image" src="camera_icon.png" alt="Camera Icon" height="20px">
       </div>
       <!-- <div class="image-preview-container"> -->
       <img style="flex: 1;" class="image-preview-container" id="previewImage" src="" alt="Selected Image" />
       <!-- </div> -->
       <div class="prompt-box">
         <div class="radio-group">
-          <input type="radio" id="student" name="role" value="Student" checked>
-          <label class="labelname" for="student">Student</label>
+          <input type="radio" id="default" name="role" value="Normal Person" checked>
+          <label class="labelname" for="default">Default</label>
 
           <input type="radio" id="farmer" name="role" value="Farmer">
           <label class="labelname" for="farmer">Farmer</label>
@@ -50,7 +53,13 @@
     </form>
     <p class="output"></p>
   </main>
-
+  <script>
+    const close= document.getElementById('close');
+    function closeCam(){
+      document.getElementById('opencam').style.display="none"
+    }
+    close.addEventListener('click',closeCam)
+  </script>
 </body>
 <script type="module" src="main.js"></script>
 

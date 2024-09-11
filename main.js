@@ -5,6 +5,7 @@ import { maybeShowApiKeyBanner } from './gemini-api-banner';
 const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
 const captureButton = document.getElementById('captureButton');
+const opencambtn = document.getElementById('opencambtn');
 const opencam = document.getElementById('opencam');
 import './style.css';
 
@@ -19,29 +20,30 @@ let profesion= "Normal"
 // let promptInput = "Please provide detailed information about the medicinal plant based on the image or scan provided.The information should include the followingname of the plant.Common name(s) of the plant.The region(s) or countries where the plant is primarily found and grows.The success ratio of the plant’s growth in different climates and soil types.The growth requirements for the plant, including light, water, soil type, and temperature.Detailed and accurate medicinal information of the plant, including its uses in traditional or modern medicine, the specific ailments it treats, and any known side effects or precautions.This section should be comprehensive and based on reliable sources.The accuracy level of the information provided by the sources on a scale of 1 to 100, with 1 being highly uncertain and 100 being highly accurate.Base this accuracy on the reliability and consistency of the information provided by the sources.Make sure to present the information in a structured format, ensuring that the same question yields the same structured information every time."
 let output = document.querySelector('.output');
 
-function OpenCamera(){
-  opencam.style.display="block"
-  alert("HI");
-  avigator.mediaDevices.getUserMedia({ video: true })
-    .then(stream => {
-      video.srcObject = stream;
-    })
-    .catch(err => {
-      console.error('Error accessing camera:', err);
-  });
-  captureButton.addEventListener('click', () => {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const imageData = canvas.toDataURL('image/png');
-    // Store image data in a variable
-    const fileVariable = imageData; 
-    // You can now use fileVariable (which contains the image data)
-    // For example, send it to a server or trigger a download
-    console.log(fileVariable); // Log the image data to the console
-  });
-}
 
+function OpenCamera(){
+  document.getElementById('opencam').style.display="block"
+  // alert("HI");
+  // avigator.mediaDevices.getUserMedia({ video: true })
+  //   .then(stream => {
+  //     video.srcObject = stream;
+  //   })
+  //   .catch(err => {
+  //     console.error('Error accessing camera:', err);
+  // });
+  // captureButton.addEventListener('click', () => {
+  //   canvas.width = video.videoWidth;
+  //   canvas.height = video.videoHeight;
+  //   context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  //   const imageData = canvas.toDataURL('image/png');
+  //   // Store image data in a variable
+  //   const fileVariable = imageData; 
+  //   // You can now use fileVariable (which contains the image data)
+  //   // For example, send it to a server or trigger a download
+  //   console.log(fileVariable); // Log the image data to the console
+  // });
+}
+opencambtn.addEventListener('click',OpenCamera) 
 
 
 // const radioButtons = document.querySelectorAll('input[name="role"]');
@@ -98,8 +100,96 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     ev.preventDefault();
     output.textContent = 'Analyze...';
     getSelectedRole();
-    let promptInput = `Identify the plant,flowers,trees,leaf,fruit,vegetables in the given image with the following details (dont's show in answer that you are AI, act as professional in this field) 1.Scientific Name: Provide the plant's scientific name. 2.Common Name: Mention the most common names used for this plant where it is grow. 3.Medicinal Uses: List the primary medicinal uses or benefits of the plant. 4.Description a brief description of the plant's appearance, including leaf shape, flower characteristics, color, and any distinctive features. 5.Geographical Distribution: Specify the regions or climates where this plant is commonly found. 6.Safety Information: Include any known pre cautions or contraindications when using this plant for medicinal purposes. 7.References: If available, provide references or sources where more information can be found about this plant. 7.also Give Additional Info If it's important 8,Accuracy: privide accuracy about this info Use clear, concise language and structure the response in a way that is easy to understand for both medical professionals and the general public. Say No about any Another things. Notice below points. 1 give information very sortly and give infomation in easy language that understandable by any ${profesion} person`
+    // let promptInput = `Identify the plant, flowers, trees, leaf, fruit, or vegetables in the given image with the following details (do not mention AI, act as a professional in this field). Please ensure the information is presented concisely, in easy-to-understand language, suitable for both medical professionals and the general public. Focus on accuracy and comprehensiveness. Provide the following details: Scientific Name: Provide the plant's scientific name. Common Name: Mention the most common names used for this plant in the regions where it grows. Medicinal Uses: List the primary medicinal uses or benefits of the plant, ensuring detailed, accurate, and up-to-date information. Description: A brief description of the plant's appearance, including leaf shape, flower characteristics, color, and any distinctive features. Geographical Distribution: Specify the regions or climates where this plant is commonly found. Growth Requirements: Include the plant’s light, water, soil, and temperature needs for optimal growth. Success Ratio: Indicate the success ratio of growing this plant in different climates and soil types. Safety Information: Include any known precautions or contraindications when using this plant for medicinal purposes. Accuracy: Provide an accuracy rating (from 1 to 100) for the information, based on reliable sources and consistency of the data. Additional Info: Include any important additional information relevant to the plant. Use clear, concise language, and structure the response so that the same question will always return consistent information. Say no to any unrelated questions or requests.
+    // And Note that You are explaining this thing to ${profesion} and give output accroding so that they can understand like for example for the researcher you can give output in details and scientific terms
+    // `
     
+    // let promptInput = `
+    
+    // "Identify the plant (which could be a whole plant, leaf, flower, tree, or fruit) in the given image and provide details based on the selected user type: Normal Person, Researcher, or Farmer.
+    // Here Person is ${profesion} so ignore any other type of role....
+    // ### For Normal Person:
+    // 1. **Scientific Name**: Provide the plant's scientific name.
+    // 2. **Common Name**: Mention the most common names used for this plant.
+    // 3. **Medicinal Uses**: Briefly list the primary medicinal uses or benefits of the plant.
+    // 4. **Description**: Give a brief, simple description of the plant’s appearance, including leaf shape, flower characteristics, color, and distinctive features.
+    // 5. **Care Instructions**: Offer basic care instructions for growing the plant (watering, sunlight, etc.).
+    // 6. **Safety Information**: Mention any important precautions or risks when using the plant medicinally.
+    
+    // ### For Researcher:
+    // 1. **Scientific Name**: Provide the accurate scientific classification of the plant, including genus and species.
+    // 2. **Medicinal Uses**: Detail the plant's uses in both traditional and modern medicine, citing studies or sources where possible.
+    // 3. **Phytochemistry**: Include information on the plant’s active compounds and their medicinal properties.
+    // 4. **Geographical Distribution**: Specify the plant’s native regions, habitats, and the climates where it thrives.
+    // 5. **Safety and Toxicology**: Provide detailed safety information, including known toxicity levels, contraindications, and side effects.
+    // 6. **References**: Provide academic or peer-reviewed sources for further reading.
+    
+    // ### For Farmer:
+    // 1. **Scientific and Common Name**: Provide both the scientific name and the most common local names.
+    // 2. **Medicinal and Agricultural Uses**: Explain any medicinal uses and practical agricultural applications of the plant.
+    // 3. **Growing Conditions**: Include information on soil types, watering needs, sunlight exposure, and suitable climates for optimal growth.
+    // 4. **Pest and Disease Management**: List common pests or diseases that affect the plant, and suggest organic or chemical treatments.
+    // 5. **Economic Importance**: Mention any commercial value the plant may have (e.g., as a crop, herbal remedy, or ornamental plant).
+    // 6. **Safety Information**: List precautions for handling or cultivating the plant, especially regarding livestock or human consumption.
+    
+    
+    // `
+
+    let promptInput = `
+    
+    Identify the plant in the image and provide a detailed breakdown of the following information, presented professionally and clearly without mentioning AI. Ensure the response is concise and easily understandable, with special attention to the medicinal properties and care instructions.
+    And provide information in the way that you are telling it to the ${profesion}.
+
+    Plant Identification: Start with a brief identification of the plant, including the common name, scientific name, family, and origin of the plant.
+    Characteristics: Describe the plant’s physical characteristics, including leaf shape, flower color, height, aroma, and any distinctive features.
+    Cultural and Religious Importance (if applicable): Mention if the plant has any significant cultural, religious, or historical importance.
+    Medicinal and Health Benefits: Focus on the medicinal properties and health benefits of the plant, listing specific uses such as immunity boosting, digestive aid, etc.
+    Care Instructions: Provide guidance on how to care for the plant, including light, watering, soil preferences, temperature needs, fertilization, and pruning recommendations.
+    Propagation: Explain how the plant can be propagated (e.g., by seeds or cuttings).
+    Pests and Problems: Mention any common pests or issues the plant may face, along with preventive measures.
+    Safety Information: Include any known precautions or contraindications related to the plant's medicinal use.
+    Additional Info (if necessary): Provide any further information that may be important or relevant.
+    Make sure to give a clear and structured response that provides accurate information on the plant and its uses."
+    
+
+    Example response (for Tulsi/Holy Basil):
+    
+    The plant in the image appears to be Tulsi (also known as Holy Basil, Ocimum tenuiflorum or Ocimum sanctum), a sacred herb in Hindu culture widely grown in India and Southeast Asia. Let's break down the key information:
+    
+    Plant Identification:
+    
+    Common Name: Tulsi, Holy Basil
+    Scientific Name: Ocimum tenuiflorum / Ocimum sanctum
+    Family: Lamiaceae (Mint family)
+    Origin: Native to the Indian subcontinent
+    Characteristics:
+    
+    Leaves: Bright green, oval leaves with serrated edges, aromatic.
+    Height: Typically 1-3 feet tall.
+    Flowers: Small, purplish or white, in clusters along a central stem.
+    Aroma: Strong fragrance due to essential oils like eugenol.
+    Cultural and Religious Importance: Tulsi is considered sacred in Hindu culture and is often grown in homes and temples. It’s used in Ayurveda as an "elixir of life."
+    
+    Medicinal and Health Benefits:
+    
+    Immunity Booster: Helps in boosting immunity and reducing stress.
+    Respiratory Relief: Eases colds, coughs, and asthma.
+    Anti-inflammatory: Reduces inflammation.
+    Antioxidant: Detoxifies the body and fights free radicals.
+    Digestion Aid: Promotes healthy digestion.
+    Care Instructions:
+    
+    Light: Needs full sunlight for at least 4-6 hours daily.
+    Watering: Regular, but avoid waterlogging; prefers well-draining soil.
+    Soil: Loamy, well-drained soil with good organic content.
+    Temperature: Thrives in warm climates; protect from frost.
+    Fertilization: Once a month during the growing season.
+    Pruning: Prune regularly for bushier growth.
+    Propagation:
+    
+    Propagate by seeds or cuttings. Seeds should be sown in moist soil, and cuttings can be placed in water or moist soil until rooted.
+    Pests and Problems: Susceptible to aphids, whiteflies, and fungal issues in humid conditions. Ensure good air circulation and avoid overwatering.
+    `
     try {
       // Load the image as a base64 string
       
