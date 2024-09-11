@@ -24,7 +24,7 @@ let output = document.querySelector('.output');
 
 function OpenCamera(){
   document.getElementById('opencam').style.display="block"
-  alert("HI");
+  // alert("HI");
   navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
       video.srcObject = stream;
