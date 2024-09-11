@@ -190,21 +190,24 @@ form.onsubmit = async (ev) => {
 
     const fileInput = document.getElementById('fileInput');
     const file = imageData ? imageData : fileInput.files[0];
-
-    // let imageUrl = form.elements.namedItem('chosen-image').value;
-    // let imageBase64 = await fetch(imageUrl)
-    //   .then(r => r.arrayBuffer())
-    //   .then(a => Base64.fromByteArray(new Uint8Array(a)));
-
-    const imageBase64 = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const base64String = reader.result.split(',')[1];
-        resolve(base64String)
-      }
-      reader.onerror = error => reject(error);
-    })
+    let imageBase64;
+    if(imageData){
+      const base64String = file.split(',')[1];
+      imageBase64 = await new Promise((resolve, reject) => {
+        resolve(base64String); // Directly resolve with the base64 string
+      });
+      
+    }else{
+      imageBase64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const base64String = reader.result.split(',')[1];
+          resolve(base64String)
+        }
+        reader.onerror = error => reject(error);
+      })
+    }
 
     // Assemble the prompt by combining the text with the chosen image
     let contents = [
