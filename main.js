@@ -10,6 +10,8 @@ const opencam = document.getElementById('opencam');
 const previewImage = document.getElementById('previewImage');
 import './style.css';
 let imageData;
+let backCameraId = null;
+let currentStream = null;
 
 // 🔥🔥 FILL THIS OUT FIRST! 🔥🔥
 // Get your Gemini API key by:
@@ -26,14 +28,41 @@ let output = document.querySelector('.output');
 function OpenCamera() {
   document.getElementById('opencam').style.display = "block"
   // alert("HI");
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(stream => {
-      video.srcObject = stream;
-      video.style.display = "block"
-    })
-    .catch(err => {
-      console.error('Error accessing camera:', err);
+  navigator.mediaDevices.enumerateDevices()
+  .then(devices => {
+    devices.forEach(device => {
+      if (device.kind === 'videoinput' && device.label.toLowerCase().includes('back')) {
+        backCameraId = device.deviceId;
+      }
     });
+    if (backCameraId) {
+      getCameraStream(backCameraId)
+        .then(stream => {
+          currentStream = stream;
+          videoElement.srcObject = stream;
+        })
+        .catch(err => console.error('Error accessing back camera:', err));
+    } else {
+      console.error('Back camera not found!');
+      // Handle the case where the back camera is not available
+    }
+  })
+  .catch(err => console.error('Error getting devices:', err));
+  function getCameraStream(deviceId) {
+    const constraints = {
+      video: { deviceId: { exact: deviceId } }
+    };
+    return navigator.mediaDevices.getUserMedia(constraints);
+  }
+  getCameraStream(backCameraId);
+  // navigator.mediaDevices.getUserMedia({ video: true })
+  //   .then(stream => {
+  //     video.srcObject = stream;
+  //     video.style.display = "block"
+  //   })
+  //   .catch(err => {
+  //     console.error('Error accessing camera:', err);
+  //   });
   captureButton.addEventListener('click', () => {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
