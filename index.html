@@ -60,6 +60,7 @@
       let video=document.getElementById('video');
       video.srcObject=null; // Stop the video stream
       video.style.display="none";
+      video.pause(); // Pause the video playback
     }
     close.addEventListener('click',closeCam)
   </script>

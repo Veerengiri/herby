@@ -7,6 +7,7 @@ const context = canvas.getContext('2d');
 const captureButton = document.getElementById('captureButton');
 const opencambtn = document.getElementById('opencambtn');
 const opencam = document.getElementById('opencam');
+const previewImage = document.getElementById('previewImage');
 import './style.css';
 
 // 🔥🔥 FILL THIS OUT FIRST! 🔥🔥
@@ -37,10 +38,8 @@ function OpenCamera(){
     canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     const imageData = canvas.toDataURL('image/png');
-    // Store image data in a variable
-    // const fileVariable = imageData;
-    previewImage.src = imageData;
     previewImage.style.display = 'block';
+    previewImage.src = imageData;
     document.getElementById('close').click();
   });
 }
@@ -57,8 +56,6 @@ function OnProfessionChange(pn){
 }
 function previewImage() {
   const fileInput = document.getElementById('fileInput');
-  const previewImage = document.getElementById('previewImage');
-
   const file = fileInput.files[0];
   if (file) {
     const reader = new FileReader();
