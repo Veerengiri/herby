@@ -84,12 +84,10 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
       const reader = new FileReader(); // Create a FileReader object
       
       // Set an onload function to run once the file is read
-      reader.onload = function(e) {
-        const previewImage = document.getElementById('previewImage'); // Get the image element
+      reader.onload = function(e) { // Get the image element
         previewImage.src = e.target.result; // Set the image source to the file's data URL
         previewImage.style.display = 'block'; // Make the image visible
       };
-      
       reader.readAsDataURL(file); // Read the file as a data URL
     }
   });
