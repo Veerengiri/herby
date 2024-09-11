@@ -68,7 +68,7 @@ function OpenCamera() {
     canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     imageData= canvas.toDataURL('image/png');
-    previewImage.style.display = 'block';
+    previewImage.style.display = 'flex';
     previewImage.src = imageData;
     closeCam();
   });
