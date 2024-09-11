@@ -55,7 +55,7 @@ function OpenCamera() {
   //   return navigator.mediaDevices.getUserMedia(constraints);
   // }
   // getCameraStream(backCameraId);
-  navigator.mediaDevices.getUserMedia({ video: true })
+  navigator.mediaDevices.getUserMedia({ video: {facingMode:'environment'} })
     .then(stream => {
       video.srcObject = stream;
       video.style.display = "block"
