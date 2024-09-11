@@ -155,7 +155,7 @@ h1 {
 h1::before {
   content: '';
   display: inline-block;
-  background: url(logo.gif);
+  background: url('/logo.gif');
   width: 40px;
   height: 40px;
   background-size: cover;
