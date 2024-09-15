@@ -165,7 +165,7 @@ form.onsubmit = async (ev) => {
     await identifyPlant(imageBase64);
     
     let promptInput  = `
-    Apply the Promt Accordint to the ${profesion}
+    Apply the Prompt only for the ${profesion} User
     
     1. Prompt for Default User:
     This version is designed for the average user, so the information is kept concise and user-friendly.
