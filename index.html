@@ -31,7 +31,7 @@
         <img id="opencambtn" class="custom-file-upload" style="filter: invert(1);cursor: pointer; background-color: #b150b0;" id="upload-image" src="camera_icon.png" alt="Camera Icon" height="20px">
       </div>
       <!-- <div class="image-preview-container"> -->
-      <img style="flex: 1;" class="image-preview-container" id="previewImage" src="" alt="Selected Image" />
+      <img class="image-preview-container" id="previewImage" src="" alt="Selected Image" />
       <!-- </div> -->
       <div class="prompt-box">
         <div class="radio-group">
@@ -43,12 +43,20 @@
 
           <input type="radio" id="researcher" name="role" value="Researcher">
           <label class="labelname" for="researcher">Researcher</label>
-          <!-- <div>
-            Accuracy 95%
-          </div> -->
+          <div>
+            Propbability: <span id="probability"></span>
+          </div>
         </div>
+        <div class="language-selector">
+          <label for="language-dropdown">Select Languages:</label>
+          <select id="language-dropdown">
+              <option value="en" id="content" selected>English</option>
+              <option value="hi" id="content">Hindi</option>
+              <option value="gu" id="content">Gujarati</option>
+          </select>
+      </div>
         <p id="testcase"></p>
-        <button type="submit" >Analyze</button>
+        <button type="submit" id="analyze-button">Analyze</button>
       </div>
     </form>
     <p class="output"></p>

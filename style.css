@@ -75,6 +75,7 @@ input[type="file"]{
   cursor: pointer;
   border: none;
   border-radius: 5px;
+  align-items: center;
 }
 
 
@@ -170,6 +171,8 @@ form {
   width: 100%;
   gap: 8px;
   margin-top: 24px;
+  justify-content: center;
+  align-items: center;
 }
 
 .image-choice {
@@ -262,4 +265,28 @@ button:focus-visible {
 
 button:hover {
   opacity: 0.95;
+}
+
+.language-selector {
+  margin: 20px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.language-selector label{
+  font-size: 20px;
+}
+
+#language-dropdown{
+  color:black;
+  border:none;
+  border-radius:5px 5px;
+  width:100px;
+  height:20px;
+}
+
+#content {
+  margin: 20px;
+  color:black;
 }
