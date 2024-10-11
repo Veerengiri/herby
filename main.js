@@ -15,8 +15,8 @@ import './style.css';
 // Get your Gemini API key by:
 // - Selecting "Add Gemini API" in the "Project IDX" panel in the sidebar
 // - Or by visiting https://g.co/ai/idxGetGeminiKey
-let API_KEY = 'AIzaSyDMdyFubIT81nN2UZL4F1YozjIxj_tdQw8';
-
+let API_KEY = 'AIzaSyD-7cHyXiob3fr0F776RxDXfRjmt56qFKA';
+// AIzaSyD-7cHyXiob3fr0F776RxDXfRjmt56qFKA
 let form = document.querySelector('form');
 let profesion = "Normal"
 // let promptInput = "Please provide detailed information about the medicinal plant based on the image or scan provided.The information should include the followingname of the plant.Common name(s) of the plant.The region(s) or countries where the plant is primarily found and grows.The success ratio of the plant’s growth in different climates and soil types.The growth requirements for the plant, including light, water, soil type, and temperature.Detailed and accurate medicinal information of the plant, including its uses in traditional or modern medicine, the specific ailments it treats, and any known side effects or precautions.This section should be comprehensive and based on reliable sources.The accuracy level of the information provided by the sources on a scale of 1 to 100, with 1 being highly uncertain and 100 being highly accurate.Base this accuracy on the reliability and consistency of the information provided by the sources.Make sure to present the information in a structured format, ensuring that the same question yields the same structured information every time."
@@ -128,7 +128,7 @@ form.onsubmit = async (ev) => {
     
     
     
-    const API_KEY_PLANT = 'Iyrdttzu4cqeTWJlWdyliXzz93vp7gTWb6oKDopu95B2P3JvAW';
+    const API_KEY_PLANT = 'YQFC8hrChgDjnaEiU3SQFsk7ItUXXhSnmiJWrWpwSJjT86FfUf';
     const apiUrl = 'https://api.plant.id/v3/identification';
     let plantName = "";
     // Function to identify a plant from an image
@@ -150,7 +150,7 @@ form.onsubmit = async (ev) => {
             'Api-Key': API_KEY_PLANT
           },
         });
-        
+           
         // console.log('Plant identification result:', response.data);
         probElement.innerText = response.data.result.is_plant.probability;
         plantName = JSON.stringify(response.data?.result?.classification?.suggestions[0]?.name);
